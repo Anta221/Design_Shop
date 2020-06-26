@@ -69,6 +69,7 @@ textarea:focus {
 	outline: none;
 }
 
+a{color:black!important;}
 a:hover,
 a:focus {
 	text-decoration: none;
@@ -237,7 +238,8 @@ ol {
 	overflow: hidden;
 	padding: 18px 0;
 }
-
+.header-top a{color:white!important;}
+.header-top a:hover{color:black!important;}
 .header-social {
 	float: left;
 }
