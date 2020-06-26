@@ -35,6 +35,7 @@ class ContenuPanierController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $contenuPanier->setCreatedAt(New \DateTime);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contenuPanier);
 

@@ -55,7 +55,7 @@
 				<ul class="main-menu">
 					<li><a href="{{ path('home') }}">Accueil</a></li>
 					<li><a href="{{ path('produit_index') }}">Produits</a></li>
-					<li><a href="{{ path('panier_index') }}">Panier</a></li>
+					<li><a href="{{ path('contenu_panier_index') }}">Panier</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
                     {% endif %}
@@ -166,8 +166,8 @@
 							<li><a href="{{ path('home') }}">Accueil</a></li>
 							<li><a href="{{ path('produit_index') }}">Produits</a></li>
 							<li><a href="{{ path('panier_index') }}">Panier</a></li>
-							<li><a href="{{ path('user_index') }}">Mon Compte</a></li>
-							<li><a href="#">Contact</a></li>
+							<li><a href="{{ path('login') }}">Mon Compte</a></li>
+							
 						
                         </ul>
                         <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
