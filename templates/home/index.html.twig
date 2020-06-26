@@ -28,7 +28,7 @@
                     <img class="card-img-top" src="{{ asset("uploads/" ~ produit.photo )}}" alt="Card image cap">
                     <div class="card-body">
                     <h5 class="card-title">{{produit.photo}} </h5>
-                    <p class="card-text">{{produit.contenu}}</p>
+                    <p class="card-text">{{produit.description }}</p>
                     <a href="{{ path('produit_show', {'id': produit.id}) }}" class="btn btn-primary">Voir</a>
                     </div>
                 </div>
