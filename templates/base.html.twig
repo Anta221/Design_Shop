@@ -68,14 +68,14 @@
 					<div class="hs-text">
 						<h2 class="hs-title-1"><span>Create</span></h2>
 						<h2 class="hs-title-2"><span>Your Own</span></h2>
-						<h2 class="hs-title-3"><span>Style</span></h2>
+						<h2 class="hs-title-3"><span>Design</span></h2>
 					</div>
 				</div>
 				<div class="hero-slide-item set-bg" data-setbg="{{asset("img/autumn-goodman-vTL_qy03D1I-unsplash.jpg")}}">
 					<div class="hs-text">
 						<h2 class="hs-title-1"><span>Create</span></h2>
 						<h2 class="hs-title-2"><span>Your Own</span></h2>
-						<h2 class="hs-title-3"><span>Style</span></h2>
+						<h2 class="hs-title-3"><span>Design</span></h2>
 					</div>
 				</div>
 			</div>
@@ -88,20 +88,18 @@
 
 
 	<!-- Review section end -->
+	{% block review %}
         <section class="review-section">
             <div class="container">
                 <div class="row">
                     
 						<p>Aenean vitae porttitor purus, et varius nunc. Aenean convallis lacus eu mauris semper, quis vulputate odio pulvinar. Ut lobortis mollis imperdiet. Phasellus vel vulputate ipsum, in sollicitudin purus. Morbi dignissim elit id ante dignissim malesuada. Sed ornare est vitae ipsum viverra, sed fringilla nunc congue. Vivamus vehicula semper auctor.Nullam et eros sit amet nunc congue efficitur eget eget metus. Sed malesuada, leo in sodales imperdiet, urna nibh lobortis tortor, tempus elementum mauris nisi sed metus. Nunc at aliquam risus.
 						</p>
-						<p> auctor ex sit amet arcu bibendum, at eleifend erat dignissim. Vivamus porta est ac
-							dolor auctor tincidunt. Nulla facilisi. Donec pharetra tortor ut posuere ornare. Cras vitae fermentum orci. Cras venenatis velit id lorem placerat lobortis. Donec imperdiet turpis non consectetur cursus. Praesent scelerisque in libero quis congue. Suspendisse nec turpis dapibus, rutrum nisl pulvinar, pellentesque mauris. Nam molestie, sapien sed condimentum accumsan, elit turpis aliquet enim, suscipit commodo dolor justo in diam. Mauris molestie ipsum justo, eu elementum arcu scelerisque ac. Curabitur at sem sed magna euismod cursus. Fusce tincidunt dui sed erat ultrices posuere.
-							Donec vitae posuere leo. Aliquam et neque et nisi malesuada tempor.
-						</p>
                     
                 </div>
             </div>
-        </section>
+		</section>
+	{% endblock %}
         <!-- Review section end -->
 
 
@@ -113,45 +111,50 @@
                 <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/ian-dooley-_-JR5TxKNSo-unsplash.jpg")}}"></div>
                 <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/jeremy-wong-weddings-0tgMi4EBpdI-unsplash.jpg")}}"></div>
                 <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/kara-eads-L7EwHkq1B2s-unsplash.jpg")}}"></div>
-                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/kara-eads-L7EwHkq1B2s-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/dan-gold-4HG3Ca3EzWw-unsplash.jpg")}}"></div>
             </div>
         </div>
         <!-- Gallery section end -->
 
 
-        <!-- Footer section  -->
-        <footer class="footer-section set-bg" data-setbg="img/footer-bg.jpg">
+		<!-- Footer section  -->
+		{% block footer %}
+        <footer class="footer-section set-bg" data-setbg="">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="footer-logo">
-                            <img src="img/logo.png" alt="">
+							<h2>
+								<a href="{{ path('home') }}" class="site-logo">
+									Design Shop
+								</a>
+							</h2>
                         </div>
                         <div class="footer-social">
                             <a href="#"><i class="fa fa-pinterest"></i></a>
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-lg-right">
                         <ul class="footer-menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Features</a></li>
-                            <li><a href="#">Receipies</a></li>
-                            <li><a href="#">Reviews</a></li>
-                            <li><a href="#">Contact</a></li>
+							
+							<li><a href="{{ path('home') }}">Accueil</a></li>
+							<li><a href="{{ path('produit_index') }}">Produits</a></li>
+							<li><a href="{{ path('panier_index') }}">Panier</a></li>
+							<li><a href="{{ path('user_index') }}">Mon Compte</a></li>
+							<li><a href="#">Contact</a></li>
+						
                         </ul>
                         <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-    </p>
+    					Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="{{asset("https://github.com/Anta221/Design_Shop")}}" target="_blank">Marléne & Anta</a>
+    					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    					</p>
                     </div>
                 </div>
             </div>
-        </footer>
+		</footer>
+		{% endblock %}
         <!-- Footer section end -->
 
 

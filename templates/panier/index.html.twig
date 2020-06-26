@@ -1,9 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier index{% endblock %}
-
+{% block title %}Panier{% endblock %}
+{% block slide %}
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-slide-item set-bg" data-setbg="{{asset("img/annie-spratt-P43nxvIHnag-unsplash.jpg")}}">
+            <div class="hs-text">
+                <h2 class="hs-title-1"><span>Mon</span></h2>
+                <h2 class="hs-title-2"><span>Panier</span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
 {% block body %}
-    <h1>Panier index</h1>
+    <br>
+    <br>
+    <div class="container">
+        <br>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa</p>
 
     <table class="table">
         <thead>
@@ -27,11 +42,16 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Votre panier est vide</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('panier_new') }}">Create new</a>
+    <a href="{{ path('panier_new') }}"><button type="button" class="btn btn-primary text-center">Nouveau pannier</button></a> 
+    <br><br>
+    
+</div>
+<br><br>
+<br><br>
 {% endblock %}
+{% block review %}{% endblock %}

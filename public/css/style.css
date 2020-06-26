@@ -54,7 +54,7 @@ h6 {
 
 p {
 	font-size: 14.1px;
-	color: #838383;
+	color:black;
 	line-height: 2.1;
 }
 
@@ -734,7 +734,7 @@ a.site-logo {
 
 .review-section {
 	padding: 65px 0;
-	background: #fdc856;
+	background: #d6ecea85;
 }
 
 .review-item {
@@ -823,6 +823,7 @@ a.site-logo {
 
 .footer-section {
 	padding: 60px 70px 50px;
+	background-color: #cea83659;
 }
 
 .footer-social {

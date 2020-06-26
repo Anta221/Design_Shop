@@ -35,9 +35,18 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //photo du produit
+            $file = $produit->getPhoto();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $produit->setPhoto($fileName);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($produit);
             $entityManager->flush();
+
+            $message = '"Produit ajouté avec succès';
+            $this->addFlash("success" , $message ); 
 
             return $this->redirectToRoute('produit_index');
         }
@@ -68,6 +77,9 @@ class ProduitController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $message = 'Produit modifier avec succès';
+            $this->addFlash("success" , $message ); 
+            
 
             return $this->redirectToRoute('produit_index');
         }
@@ -87,6 +99,9 @@ class ProduitController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($produit);
             $entityManager->flush();
+
+            $message = 'Produit supprimé avec succès';
+            $this->addFlash("success" , $message ); 
         }
 
         return $this->redirectToRoute('produit_index');
