@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier{% endblock %}
+{% block title %}Votre Panier{% endblock %}
 {% block slide %}
 <section class="hero-section">
     <div class="hero-slider owl-carousel">
@@ -13,6 +13,8 @@
     </div>
 </section>
 {% endblock %}
+
+
 {% block body %}
     <br>
     <br>
@@ -20,34 +22,53 @@
         <br>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa</p>
 
+    {% set total = 0 %}
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Etat</th>
-                <th>actions</th>
+                <th>Produit</th>
+                <th>Date d'ajout</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Montant</th>
+                <th>Actions</th>
+                <th>Total</th>
             </tr>
         </thead>
+       
         <tbody>
-        {% for panier in paniers %}
-            <tr>
-                <td>{{ panier.id }}</td>
-                <td>{{ panier.createdAt ? panier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ panier.etat ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('panier_show', {'id': panier.id}) }}">show</a>
-                    <a href="{{ path('panier_edit', {'id': panier.id}) }}">edit</a>
-                </td>
+        {% if produits is not empty %}
+          {% for produit in produits %}
+          <tr>
+          {% set total_ligne = panier[produit.id].quantite * panier[produit.id].prix   %}
+            {% set total = total + total_ligne %}
+            <th>{{ panier[produit.id].nom_produit }}</th>
+            <th>{{ panier[produit.id].date_ajout|date("d-m-Y") }}</th>
+            <th>{{ panier[produit.id].quantite }}</th>
+            <th>{{ panier[produit.id].prix }} €</th>
+            <th>{{ total_ligne }} €</th>
+            <th><a href="{{ path('delete_produit_panier' , {'id' : panier[produit.id].id_produit  }) }}" class="btn btn-warning">Retirer</a></th>
+            <th></th>
             </tr>
+          {% endfor %}
+          <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ total }} €</strong></td>
+          <tr>
         {% else %}
             <tr>
                 <td colspan="4">Votre panier est vide</td>
             </tr>
-        {% endfor %}
+        {% endif %}
+      
         </tbody>
     </table>
-    <a href="{{ path('panier_new') }}"><button type="button" class="btn btn-primary text-center">Nouveau pannier</button></a> 
+    <a href=""><button type="button" class="btn btn-primary text-center">Acheter</button></a> 
     <br><br>
     
 </div>

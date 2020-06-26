@@ -5,100 +5,67 @@ namespace App\Controller;
 use App\Entity\Panier;
 use App\Form\PanierType;
 use App\Repository\PanierRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/panier")
+ * @Route("/user/panier")
  */
 class PanierController extends AbstractController
 {
+
+
     /**
+     * AFFICHE LES PRODUITS STOCKÉ DANS LE PANIER
      * @Route("/", name="panier_index", methods={"GET"})
      */
-    public function index(PanierRepository $panierRepository): Response
+    public function index( SessionInterface $session , ProduitRepository $repo): Response
     {
+        // récupération des modèles hauts en session
+        $produits = $repo->findArrayProduit(array_keys($session->get('Panier')));
+    
         return $this->render('panier/index.html.twig', [
-            'paniers' => $panierRepository->findAll(),
+            'produits' => $produits, 
+            'panier' => $session->get('Panier')
         ]);
     }
 
+    
+
     /**
-     * @Route("/new", name="panier_new", methods={"GET","POST"})
+     * Affiche la liste des paniers
+     * @Route("/liste/panier" , name="panier_liste" )
      */
-    public function new(Request $request): Response
+    public function listePanier(PanierRepository $repo)
     {
-        $panier = new Panier();
-        $form = $this->createForm(PanierType::class, $panier);
-        $form->handleRequest($request);
+        return $this->render('panier/liste.html.twig', [
+            'panier' => $repo->findAll()
+        ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($panier);
-            $entityManager->flush();
+    }
 
-            $message = 'Votre panier a été crée avec succès';
-            $this->addFlash("success" , $message ); 
 
-            return $this->redirectToRoute('panier_index');
+    /**
+     * Met à jour l'état du panier à true / et met à jour le stock
+     * @Route("/edit/panier/{id}" , name="edit_panier")
+     */
+    public function editPanier(Panier $panier , SessionInterface $session )
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        if($panier->getUser() == $this->getUser()){
+            $panier->setEtat(1); 
+           
+            $this->addFlash("success" , "Votre commande est validé"); 
         }
 
-        return $this->render('panier/new.html.twig', [
-            'panier' => $panier,
-            'form' => $form->createView(),
-        ]);
     }
 
-    /**
-     * @Route("/{id}", name="panier_show", methods={"GET"})
-     */
-    public function show(Panier $panier): Response
-    {
-        return $this->render('panier/show.html.twig', [
-            'panier' => $panier,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="panier_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Panier $panier): Response
-    {
-        $form = $this->createForm(PanierType::class, $panier);
-        $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            $message = 'Votre panier a été modifié avec succès';
-            $this->addFlash("success" , $message );
 
-            return $this->redirectToRoute('panier_index');
-        }
-
-        return $this->render('panier/edit.html.twig', [
-            'panier' => $panier,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="panier_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Panier $panier): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$panier->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($panier);
-
-            $message = 'Votre panier a été supprimé avec succès';
-            $this->addFlash("success" , $message );
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('panier_index');
-    }
 }

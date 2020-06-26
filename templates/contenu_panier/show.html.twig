@@ -1,30 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ContenuPanier{% endblock %}
+{% block title %}Votre Contenu Panier{% endblock %}
+{% block slide %}
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-slide-item set-bg" data-setbg="{{asset("img/annie-spratt-P43nxvIHnag-unsplash.jpg")}}">
+            <div class="hs-text">
+                <h2 class="hs-title-1"><span>Mon</span></h2>
+                <h2 class="hs-title-2"><span>Contenu Panier</span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 
 {% block body %}
-    <h1>ContenuPanier</h1>
-
+    <br>
+    <br>
+    <div class="container">
+        <br>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa</p>
+{% if panier != null %}
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
-                <th>Id</th>
-                <td>{{ contenu_panier.id }}</td>
+                <th>Produit</th>
+                <th>Date d'ajout</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Montant</th>
+                <th>Etat</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+       
+        <tbody>{{ dump(produits) }}
+        {% if produits is not empty %}
+          {% for produit in produits %}
+          <tr>
+          {% set total_ligne = panier[produit.id].quantite * panier[produit.id].prix   %}
+
+            <th>{{ panier[produit.id].nom_produit }}</th>
+            <th>{{ panier[produit.id].date_ajout|date("d-m-Y") }}</th>
+            <th>{{ panier[produit.id].quantite }}</th>
+            <th>{{ panier[produit.id].prix }} €</th>
+            <th>{{ total_ligne }} €</th>
+            </tr>
+          {% endfor %}
+        {% else %}
             <tr>
-                <th>Quantite</th>
-                <td>{{ contenu_panier.quantite }}</td>
+                <td colspan="4">Votre panier est vide</td>
             </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ contenu_panier.createdAt ? contenu_panier.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+        {% endif %}
+      
         </tbody>
     </table>
-
-    <a href="{{ path('contenu_panier_index') }}">back to list</a>
-
-    <a href="{{ path('contenu_panier_edit', {'id': contenu_panier.id}) }}">edit</a>
-
-    {{ include('contenu_panier/_delete_form.html.twig') }}
+    <a href="{{ path('panier_new') }}"><button type="button" class="btn btn-primary text-center">Nouveau pannier</button></a> 
+    <br><br>
+{% else %}
+<p>Contenu panier vide </p>
+{% endif %}
+</div>
+<br><br>
+<br><br>
+{% endblock %}
+{% block review %}
+<section class="container section-title">
+    
+    <h5>Autres produits </h5>
+       
+</section>
 {% endblock %}

@@ -36,7 +36,8 @@
 					<a href="#"><i class="fa fa-twitter"></i></a>
 				</div>
 				<div class="user-panel">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+						<p>Bonjour {{ app.user.prenom }}</p>
                         <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
                     {% else %}
                         <a href="{{ path('login') }}">Connexion</a> / 
@@ -55,7 +56,7 @@
 				<ul class="main-menu">
 					<li><a href="{{ path('home') }}">Accueil</a></li>
 					<li><a href="{{ path('produit_index') }}">Produits</a></li>
-					<li><a href="{{ path('contenu_panier_index') }}">Panier</a></li>
+					<li><a href="{{ path('contenu_panier_show') }}">Panier</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
                     {% endif %}
