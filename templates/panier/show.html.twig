@@ -22,9 +22,18 @@
         </tbody>
     </table>
 
-    <a href="{{ path('panier_index') }}">back to list</a>
 
-    <a href="{{ path('panier_edit', {'id': panier.id}) }}">edit</a>
+    <div class="card-body d-flex justify-content-between">
+        <a href="{{ path('panier_edit', {'id': panier.id}) }}"><button type="button" class="btn btn-success text-center">Editer</button></a>             
+        <a href="{{ path('panier_index') }}"><button type="button" class="btn btn-secondary text-center">Retour</button></a>
+    </div>    
 
     {{ include('panier/_delete_form.html.twig') }}
+{% endblock %}
+{% block review %}
+<section class="container section-title">
+    
+    <h5>Autres produits </h5>
+       
+</section>
 {% endblock %}

@@ -1,42 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Produit{% endblock %}
-
-{% block body %}
-    <h1>Produit</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ produit.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ produit.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ produit.description }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ produit.prix }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ produit.stock }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ produit.photo }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('produit_index') }}">back to list</a>
-
-    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-
-    {{ include('produit/_delete_form.html.twig') }}
+{% block slide %}
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-slide-item set-bg" data-setbg="{{ asset("uploads/" ~ produit.photo )}}">
+        
+        </div>
+    </div>
+</section>
 {% endblock %}
+{% block body %}
+<br><br>
+    <div class="container">
+        <h5 class="text-center">Détails du produit</h5>
+        <br>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ produit.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ produit.description }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ produit.prix }} euros</td>
+                </tr>
+                <tr>
+                    <th>Stock</th>
+                    <td>{{ produit.stock }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+           
+    <div class="card-body d-flex justify-content-between">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED" and is_granted('ROLE_ADMIN')) %}
+        <a href="{{ path('produit_edit', {'id': produit.id}) }}"><button type="button" class="btn btn-success text-center">Editer</button></a>             
+        {{ include('produit/_delete_form.html.twig') }}
+        {% endif %}
+        <a href="{{ path('produit_index') }}"><button type="button" class="btn btn-secondary text-center">Retour</button></a>
+       
+        <a href="{{ path('contenu_panier_new') }}"><button type="button" class="btn btn-info text-center">Ajouter au panier</button></a>
+       
+    </div>    
+     
+
+        
+
+    </div>
+    <br><br>
+{% endblock %}
+{% block review %}
+<section class="container section-title">
+    
+    <h5>Autres produits </h5>
+       
+</section>
+{% endblock %}
+
+
