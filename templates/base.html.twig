@@ -33,33 +33,26 @@
 					<a href="#"><i class="fa fa-pinterest"></i></a>
 					<a href="#"><i class="fa fa-facebook"></i></a>
 					<a href="#"><i class="fa fa-twitter"></i></a>
-					<a href="#"><i class="fa fa-dribbble"></i></a>
-					<a href="#"><i class="fa fa-behance"></i></a>
-					<a href="#"><i class="fa fa-linkedin"></i></a>
 				</div>
 				<div class="user-panel">
-					<a href="#">Register</a> / 
-					<a href="#">Login</a>
+					<a href="#">Connexion</a> / 
+					<a href="#">Inscription</a>
 				</div>
 			</div>
 		</div>
 		<div class="header-bottom">
 			<div class="container">
-				<a href="index.html" class="site-logo">
-					<img src="img/logo.png" alt="">
-				</a>
-				<div class="nav-switch">
-					<i class="fa fa-bars"></i>
-				</div>
-				<div class="header-search">
-					<a href="#"><i class="fa fa-search"></i></a>
-				</div>
+				<h2>
+					<a href="{{ path('home') }}" class="site-logo">
+						Design Shop
+					</a>
+				</h2>
 				<ul class="main-menu">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">Features</a></li>
-					<li><a href="recipes.html">Receipies</a></li>
-					<li><a href="#">Reviews</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="{{ path('home') }}">Accueil</a></li>
+					<li><a href="{{ path('produit_index') }}">Produits</a></li>
+					<li><a href="{{ path('panier_index') }}">Panier</a></li>
+					<li><a href="{{ path('user_index') }}">Mon Compte</a></li>
+					<li><a href="#">Contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -68,204 +61,29 @@
 
 
 	<!-- Hero section -->
-	<section class="hero-section">
-		<div class="hero-slider owl-carousel">
-			<div class="hero-slide-item set-bg" data-setbg="img/slider-bg-1.jpg">
-				<div class="hs-text">
-					<h2 class="hs-title-1"><span>Healthy Recipes</span></h2>
-					<h2 class="hs-title-2"><span>from the best chefs</span></h2>
-					<h2 class="hs-title-3"><span>for all the foodies</span></h2>
+	{% block slide %}
+		<section class="hero-section">
+			<div class="hero-slider owl-carousel">
+				<div class="hero-slide-item set-bg" data-setbg="{{asset("img/manja-vitolic-7tOV35hnkao-unsplash.jpg")}}">
+					<div class="hs-text">
+						<h2 class="hs-title-1"><span>Create</span></h2>
+						<h2 class="hs-title-2"><span>Your Own</span></h2>
+						<h2 class="hs-title-3"><span>Style</span></h2>
+					</div>
+				</div>
+				<div class="hero-slide-item set-bg" data-setbg="{{asset("img/autumn-goodman-vTL_qy03D1I-unsplash.jpg")}}">
+					<div class="hs-text">
+						<h2 class="hs-title-1"><span>Create</span></h2>
+						<h2 class="hs-title-2"><span>Your Own</span></h2>
+						<h2 class="hs-title-3"><span>Style</span></h2>
+					</div>
 				</div>
 			</div>
-			<div class="hero-slide-item set-bg" data-setbg="img/slider-bg-2.jpg">
-				<div class="hs-text">
-					<h2 class="hs-title-1"><span>Healthy Recipes</span></h2>
-					<h2 class="hs-title-2"><span>from the best chefs</span></h2>
-					<h2 class="hs-title-3"><span>for all the foodies</span></h2>
-				</div>
-			</div>
-		</div>
-	</section>
+		</section>
+	{% endblock %}
 	<!-- Hero section end -->
         {% block body %}{% endblock %}
-        <!-- Footer widgets section -->
-	<section class="bottom-widgets-section spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-6 ftw-warp">
-					<div class="section-title">
-						<h3>Top rated recipes</h3>
-					</div>
-					<ul class="sp-recipes-list">
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/1.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Italian pasta</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/2.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>French Onion Soup</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/3.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Homemade  pasta</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/4.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Onion Soup Gratinee</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/4.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Feta Cheese Burgers</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-md-6 ftw-warp">
-					<div class="section-title">
-						<h3>Most liked recipes</h3>
-					</div>
-					<ul class="sp-recipes-list">
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/6.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Traditional Food</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/7.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Baked Salmon</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/8.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Deep Fried Fish</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/9.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Raw Tomato Soup</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="rl-thumb set-bg" data-setbg="img/thumb/10.jpg"></div>
-							<div class="rl-info">
-								<span>March 14, 2018</span>
-								<h6>Vegan Food</h6>
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-4">
-					<div class="sp-blog-item">
-						<div class="blog-thubm">
-							<img src="img/blog/1.jpg" alt="">
-							<div class="blog-date">
-								<span>May 04, 2018</span>
-							</div>
-						</div>
-						<div class="blog-text">
-							<h5>Italian restaurant Review</h5>
-							<span>By Maria Williams</span>
-							<p>Donec quam felis, ultricies nec, pellente sque eu, pretium quis, sem. Nulla conseq uat massa quis enim. </p>
-							<a href="#" class="comment">2 Comments</a>
-							<a href="#" class="readmore"><i class="fa fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
 	<!-- Footer widgets section end -->
 
 
@@ -273,54 +91,14 @@
         <section class="review-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-8 offset-lg-0 offset-md-2">
-                        <div class="review-item">
-                            <div class="review-thumb set-bg" data-setbg="img/thumb/11.jpg">
-                                <div class="review-date">
-                                    <span>May 04, 2018</span>
-                                </div>
-                            </div>
-                            <div class="review-text">
-                                <span>March 14, 2018</span>
-                                <h6>Feta Cheese Burgers</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star is-fade"></i>
-                                </div>
-                                <div class="author-meta">
-                                    <div class="author-pic set-bg" data-setbg="img/author.jpg"></div>
-                                    <p>By Janice Smith</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-8 offset-lg-0 offset-md-2">
-                        <div class="review-item">
-                            <div class="review-thumb set-bg" data-setbg="img/thumb/12.jpg">
-                                <div class="review-date">
-                                    <span>May 04, 2018</span>
-                                </div>
-                            </div>
-                            <div class="review-text">
-                                <span>March 14, 2018</span>
-                                <h6>Mozarella Pasta</h6>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star is-fade"></i>
-                                </div>
-                                <div class="author-meta">
-                                    <div class="author-pic set-bg" data-setbg="img/author.jpg"></div>
-                                    <p>By Janice Smith</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+						<p>Aenean vitae porttitor purus, et varius nunc. Aenean convallis lacus eu mauris semper, quis vulputate odio pulvinar. Ut lobortis mollis imperdiet. Phasellus vel vulputate ipsum, in sollicitudin purus. Morbi dignissim elit id ante dignissim malesuada. Sed ornare est vitae ipsum viverra, sed fringilla nunc congue. Vivamus vehicula semper auctor.Nullam et eros sit amet nunc congue efficitur eget eget metus. Sed malesuada, leo in sodales imperdiet, urna nibh lobortis tortor, tempus elementum mauris nisi sed metus. Nunc at aliquam risus.
+						</p>
+						<p> auctor ex sit amet arcu bibendum, at eleifend erat dignissim. Vivamus porta est ac
+							dolor auctor tincidunt. Nulla facilisi. Donec pharetra tortor ut posuere ornare. Cras vitae fermentum orci. Cras venenatis velit id lorem placerat lobortis. Donec imperdiet turpis non consectetur cursus. Praesent scelerisque in libero quis congue. Suspendisse nec turpis dapibus, rutrum nisl pulvinar, pellentesque mauris. Nam molestie, sapien sed condimentum accumsan, elit turpis aliquet enim, suscipit commodo dolor justo in diam. Mauris molestie ipsum justo, eu elementum arcu scelerisque ac. Curabitur at sem sed magna euismod cursus. Fusce tincidunt dui sed erat ultrices posuere.
+							Donec vitae posuere leo. Aliquam et neque et nisi malesuada tempor.
+						</p>
+                    
                 </div>
             </div>
         </section>
@@ -330,12 +108,12 @@
         <!-- Gallery section -->
         <div class="gallery">
             <div class="gallery-slider owl-carousel">
-                <div class="gs-item set-bg" data-setbg="img/instagram/1.jpg"></div>
-                <div class="gs-item set-bg" data-setbg="img/instagram/2.jpg"></div>
-                <div class="gs-item set-bg" data-setbg="img/instagram/3.jpg"></div>
-                <div class="gs-item set-bg" data-setbg="img/instagram/4.jpg"></div>
-                <div class="gs-item set-bg" data-setbg="img/instagram/5.jpg"></div>
-                <div class="gs-item set-bg" data-setbg="img/instagram/6.jpg"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/francesca-tosolini-DmOhItSo49k-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/francesca-tosolini-qnSTxcs0EEs-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/ian-dooley-_-JR5TxKNSo-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/jeremy-wong-weddings-0tgMi4EBpdI-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/kara-eads-L7EwHkq1B2s-unsplash.jpg")}}"></div>
+                <div class="gs-item set-bg" data-setbg="{{asset("img/instagram/kara-eads-L7EwHkq1B2s-unsplash.jpg")}}"></div>
             </div>
         </div>
         <!-- Gallery section end -->

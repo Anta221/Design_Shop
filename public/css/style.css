@@ -264,7 +264,11 @@ ol {
 }
 
 .site-logo {
-	display: inline-block;
+	display: inline-block;	
+}
+a.site-logo {
+	color: rgb(68, 67, 67);
+	
 }
 
 .nav-switch {

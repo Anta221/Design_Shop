@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\PanierRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PanierRepository;
+use Doctrine\ORM\Mapping\PrePersist;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PanierRepository::class)
@@ -73,4 +75,14 @@ class Panier
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+    */
+    public function prepersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->etat = false;
+    }
+
 }
