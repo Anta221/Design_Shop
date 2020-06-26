@@ -2,49 +2,106 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
+use App\Entity\Produit;
 use App\Entity\ContenuPanier;
 use App\Form\ContenuPanierType;
+use App\Repository\ProduitRepository;
 use App\Repository\ContenuPanierRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/contenu/panier")
  */
 class ContenuPanierController extends AbstractController
 {
+ 
     /**
-     * @Route("/", name="contenu_panier_index", methods={"GET"})
+     * Permet d'ajouter un produit dans la session Panier
+     * @Route("/new/{id}", name="contenu_panier_new", methods={"GET","POST"})
      */
-    public function index(ContenuPanierRepository $contenuPanierRepository): Response
+    public function new(Request $request , Produit $produit , SessionInterface $session ,ContenuPanierRepository $repo): Response
     {
-        return $this->render('contenu_panier/index.html.twig', [
-            'contenu_paniers' => $contenuPanierRepository->findAll(),
-        ]);
-    }
+        $entityManager = $this->getDoctrine()->getManager();
+        //création de la session si ,existe pas 
+        if(!$session->has('Panier')){
 
-    /**
-     * @Route("/new", name="contenu_panier_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $contenuPanier = new ContenuPanier();
-        $form = $this->createForm(ContenuPanierType::class, $contenuPanier);
-        $form->handleRequest($request);
+            $session->set('Panier', array()); 
+            $panier =   $session->get('Panier');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $contenuPanier->setCreatedAt(New \DateTime);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($contenuPanier);
+            //contenu panier
+            $contenuPanier = new ContenuPanier();
+            $contenuPanier->setQuantite($request->request->get('quantite')); 
+            $contenuPanier->setCreatedAt(new \DateTime()); 
+            $produit->addContenuPanier($contenuPanier); 
 
-            $message = 'succès';
-            $this->addFlash("success" , $message );
-            $entityManager->flush();
+        
+            // Création du panier
+            $panierUser = new Panier(); 
+            $panierUser->setUser($this->getUser()); 
+            $panierUser->setCreatedAt(new \DateTime()); 
+            $panierUser->setEtat(0); 
+            $entityManager->persist( $panierUser); 
+    
 
-            return $this->redirectToRoute('contenu_panier_index');
+            $id_produit = $produit->getId(); 
+            $panier[$id_produit] = [
+                'id_produit' => $produit->getId(),
+                'quantite' => $contenuPanier->getQuantite(), 
+                'date_ajout' => $contenuPanier->getCreatedAt(), 
+                'prix' =>$produit->getPrix(), 
+                'stock' => $produit->getStock(), 
+                'nom_produit' => $produit->getNom()
+            ]; 
+
+            $session->set('Panier' , $panier); 
+
+        }else{
+
+            $panier = $session->get('Panier'); 
+            $contenuPanier = new ContenuPanier();
+            $contenuPanier->setQuantite($request->request->get('quantite')); 
+            $contenuPanier->setCreatedAt(new \DateTime()); 
+            $produit->addContenuPanier($contenuPanier); 
+
+            $id_produit = $produit->getId(); 
+            if(array_key_exists($id_produit , $panier)){
+
+                $quantite = $panier[$id_produit]['quantite'] + $contenuPanier->getQuantite(); 
+                $panier[$id_produit]['quantite'] = $quantite;  
+               
+            }else{
+
+                $panier[$id_produit] = [
+                    'id_produit' => $produit->getId(),
+                    'quantite' => $contenuPanier->getQuantite(), 
+                    'date_ajout' => $contenuPanier->getCreatedAt(), 
+                    'prix' =>$produit->getPrix(), 
+                    'stock' => $produit->getStock(), 
+                    'nom_produit' => $produit->getNom()
+                ]; 
+
+
+            }
+      
+            $session->set('Panier' ,  $panier ); 
+
         }
+
+   
+
+        $entityManager->persist($contenuPanier);
+       
+        $entityManager->flush();
+
+ 
+        $this->addFlash("success" , "Produit ajouté au panier");
+
+        return $this->redirectToRoute('panier_index' );
 
         return $this->render('contenu_panier/new.html.twig', [
             'contenu_panier' => $contenuPanier,
@@ -52,52 +109,55 @@ class ContenuPanierController extends AbstractController
         ]);
     }
 
+
+
+
     /**
-     * @Route("/{id}", name="contenu_panier_show", methods={"GET"})
+     * Affiche le contenu du panier
+     * @Route("/", name="contenu_panier_show", methods={"GET"})
      */
-    public function show(ContenuPanier $contenuPanier): Response
+    public function show(SessionInterface $session , ProduitRepository $repo): Response
     {
+          // récupération des modèles hauts en session
+          $panier = null ; 
+          $produits = null; 
+          if($session->has('Panier')){
+            $produits = $repo->findArrayProduit(array_keys($session->get('Panier')));
+            $panier = $session->get('Panier'); 
+          }
+    
         return $this->render('contenu_panier/show.html.twig', [
-            'contenu_panier' => $contenuPanier,
+            'produits' => $produits, 
+            'panier' => $panier
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="contenu_panier_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, ContenuPanier $contenuPanier): Response
-    {
-        $form = $this->createForm(ContenuPanierType::class, $contenuPanier);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            $message = 'succès';
-            $this->addFlash("success" , $message );
 
-            return $this->redirectToRoute('contenu_panier_index');
-        }
-
-        return $this->render('contenu_panier/edit.html.twig', [
-            'contenu_panier' => $contenuPanier,
-            'form' => $form->createView(),
-        ]);
-    }
 
     /**
-     * @Route("/{id}", name="contenu_panier_delete", methods={"DELETE"})
+     * Supprime un produit de la sesion panier
+     * @Route("/delete/produit/panier/{id}", name="delete_produit_panier")
+     * @param SessionInterface $session
+     * @param $id
+     * @return Response
      */
-    public function delete(Request $request, ContenuPanier $contenuPanier): Response
+    public function deleteProduit(SessionInterface $session, $id):Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contenuPanier->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contenuPanier);
-            $entityManager->flush();
-            $message = 'succès';
-            $this->addFlash("success" , $message );
-        }
+        $panier = $session->get('Panier');
 
-        return $this->redirectToRoute('contenu_panier_index');
+        if(array_key_exists($id, $panier))
+        {
+            unset($panier[$id]);
+            $session->set('Panier', $panier);
+        }
+        $this->addFlash('danger', 'Produit supprimé');
+       return $this->redirectToRoute('panier_index');
+
     }
+
+
+
+
 }

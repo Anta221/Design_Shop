@@ -5,6 +5,11 @@ security:
         App\Entity\User:
             algorithm: bcrypt
 
+    role_hierarchy:
+        ROLE_USER:  ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_ADMIN,ROLE_SUPER_ADMIN
+
     providers:
         in_memory: { memory: null }
         users:

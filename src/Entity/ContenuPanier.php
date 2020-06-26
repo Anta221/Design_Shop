@@ -28,7 +28,7 @@ class ContenuPanier
 
     /**
      * @ORM\OneToOne(targetEntity=Panier::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $panier;
 
@@ -116,10 +116,12 @@ class ContenuPanier
     }
 
     /**
-     * @ORM\PrePersist
+    * Initalisation de la date
+    * @ORM\PrePersist
     */
-    public function prepersist()
+    public function Prepersist()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime('now');  
     }
+
 }

@@ -1,0 +1,12 @@
+<form method="post" action="{{ path('contenu_panier_new' , {'id': produit.id })  }}" class="mb-5">
+    <div class="form-group">
+    <label for="quantité">{% trans %}Quantité{% endtrans %}</label>
+    <select class="form-control" id="select_quantite" name="quantite">
+        {% for i in  1 .. produit.stock %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+    </select>
+  </div>
+ 
+    <button class="btn btn-success">{% trans %}Ajouter{% endtrans %}</button>
+</form>
