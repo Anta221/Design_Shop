@@ -8,7 +8,8 @@
         <title>{% block title %}{% endblock %}</title>
         <!-- Google Fonts -->
 	    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+  
                                     
         {% block stylesheets %}
         	<!-- Stylesheets -->
@@ -35,8 +36,12 @@
 					<a href="#"><i class="fa fa-twitter"></i></a>
 				</div>
 				<div class="user-panel">
-					<a href="#">Connexion</a> / 
-					<a href="#">Inscription</a>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('login') }}">Connexion</a> / 
+                        <a href="{{ path('user_new') }}">Inscription</a>
+                    {% endif %}
 				</div>
 			</div>
 		</div>
@@ -51,13 +56,30 @@
 					<li><a href="{{ path('home') }}">Accueil</a></li>
 					<li><a href="{{ path('produit_index') }}">Produits</a></li>
 					<li><a href="{{ path('panier_index') }}">Panier</a></li>
-					<li><a href="{{ path('user_index') }}">Mon Compte</a></li>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
+                    {% endif %}
 					<li><a href="#">Contact</a></li>
 				</ul>
 			</div>
 		</div>
 	</header>
 	<!-- Header section end -->
+
+    <div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            <strong><i class="fa fa-check"></i> {{ message }} </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %} 
+    {% endfor %}
+    </div>
+  
+
 
 
 	<!-- Hero section -->
@@ -82,7 +104,9 @@
 		</section>
 	{% endblock %}
 	<!-- Hero section end -->
-        {% block body %}{% endblock %}
+
+    
+    {% block body %}{% endblock %}
 
 	<!-- Footer widgets section end -->
 
@@ -162,6 +186,7 @@
             <script src="{{asset("js/jquery-3.2.1.min.js")}}"></script>
             <script src="{{asset("js/owl.carousel.min.js")}}"></script>
             <script src="{{asset("js/main.js")}}"></script>
+            <script src="{{asset("js/bootstrap.min.js")}}"></script>
         {% endblock %}
     </body>
 </html>

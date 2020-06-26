@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="Cette adresse e-mail est déjà utilisé")
  */
-class User
+class User implements UserInterface 
 {
     /**
      * @ORM\Id()
@@ -21,21 +25,29 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     *  @Assert\Length(
+     *    min = 7,
+     *    minMessage = "Votre mot de passe doit contenir au moins {{ limit }} charactères",
+     * )
      */
     private $password;
 
@@ -48,6 +60,8 @@ class User
      * @ORM\OneToMany(targetEntity=Panier::class, mappedBy="user", orphanRemoval=true)
      */
     private $paniers;
+
+    private $roles = [];
     
 
     public function __construct()
@@ -165,4 +179,59 @@ class User
 
         return $this;
     }
+
+
+    /**
+     * Attribution ROLE_USER à la création
+     */
+    public function getRoles(): array
+    {
+
+        $roles = $this->userRoles->map(function($role){
+            return $role->getNom(); 
+        })->toArray(); 
+
+        $roles[] = 'ROLE_USER';
+
+        return $roles; 
+
+   
+    }
+
+
+
+    public function getUsername(){
+
+        return $this->email; 
+  
+    }
+
+    
+    public function eraseCredentials(){}
+
+
+    public function getSalt(){}
+
+    /**
+     * @see \Serializable::serialize()
+    */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email
+        ));
+    }
+ 
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            ) = unserialize($serialized); 
+    }
+
 }
