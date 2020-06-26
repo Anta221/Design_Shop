@@ -37,6 +37,9 @@ class ContenuPanierController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contenuPanier);
+
+            $message = 'succès';
+            $this->addFlash("success" , $message );
             $entityManager->flush();
 
             return $this->redirectToRoute('contenu_panier_index');
@@ -69,6 +72,9 @@ class ContenuPanierController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $message = 'succès';
+            $this->addFlash("success" , $message );
+
             return $this->redirectToRoute('contenu_panier_index');
         }
 
@@ -87,6 +93,8 @@ class ContenuPanierController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contenuPanier);
             $entityManager->flush();
+            $message = 'succès';
+            $this->addFlash("success" , $message );
         }
 
         return $this->redirectToRoute('contenu_panier_index');

@@ -39,6 +39,9 @@ class PanierController extends AbstractController
             $entityManager->persist($panier);
             $entityManager->flush();
 
+            $message = 'Votre panier a été crée avec succès';
+            $this->addFlash("success" , $message ); 
+
             return $this->redirectToRoute('panier_index');
         }
 
@@ -66,8 +69,12 @@ class PanierController extends AbstractController
         $form = $this->createForm(PanierType::class, $panier);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $message = 'Votre panier a été modifié avec succès';
+            $this->addFlash("success" , $message );
 
             return $this->redirectToRoute('panier_index');
         }
@@ -86,6 +93,9 @@ class PanierController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$panier->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($panier);
+
+            $message = 'Votre panier a été supprimé avec succès';
+            $this->addFlash("success" , $message );
             $entityManager->flush();
         }
 

@@ -1,43 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
-
-{% block body %}
-    <h1>Produit index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Photo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.stock }}</td>
-                <td>{{ produit.photo }}</td>
-                <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('produit_new') }}">Create new</a>
+{% block title %}Panier{% endblock %}
+{% block slide %}
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-slide-item set-bg" data-setbg="{{asset("img/vinicius-amnx-amano-ALpEkP29Eys-unsplash.jpg")}}">
+            <div class="hs-text">
+                <h2 class="hs-title-1"><span>Nos</span></h2>
+                <h2 class="hs-title-2"><span>Produits</span></h2>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
+{% block body %}
+<br><br>
+<div class="container">
+    <h5>Nos produits</h5>
+    <!-- Recipes section -->
+   
+    {% for produit in produits %}
+    <section class="recipes-section spad pt-0">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest recipes</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="recipe">
+                        <img src="img/recipes/1.jpg" alt="">
+                        <div class="recipe-info-warp">
+                            <div class="recipe-info">
+                                <h3>Traditional Pizza</h3>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star is-fade"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <a href="{{ path('produit_show', {'id': produit.id}) }}"><button type="button" class="btn btn-info text-center">Voir</button></a>
+    <a href="{{ path('produit_edit', {'id': produit.id}) }}"><button type="button" class="btn btn-warning text-center">Editer</button></a>             
+                 
+               
+        {% else %}
+          <p>Aucun produit</p>  
+        {% endfor %}
+   
+    <div class="card-body d-flex justify-content-between">
+        <a href="{{ path('produit_new') }}"><button type="button" class="btn btn-success text-center">Nouveau produit</button></a>             
+        <a href="{{ path('home') }}"><button type="button" class="btn btn-secondary text-center">Retour</button></a>
+    </div>     
+</div>
+{% endblock %}
+{% block review %}{% endblock %}
