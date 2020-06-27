@@ -61,7 +61,7 @@
 					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
 					{% endif %}
 					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_SUPER_ADMIN') %}
-						 <li><a href="{{ path('panier_liste') }}">Liste des paniers</a></li>
+						 <li><a href="{{ path('panier_liste') }}">Liste des paniers non acheté</a></li>
 					{% endif %}
 					
 				</ul>

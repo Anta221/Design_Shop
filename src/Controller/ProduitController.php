@@ -83,6 +83,14 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //photo du produit
+            $file = $produit->getPhoto();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $produit->setPhoto($fileName);
+
+
             $this->getDoctrine()->getManager()->flush();
             $message = 'Produit modifier avec succès';
             $this->addFlash("success" , $message ); 
@@ -111,8 +119,7 @@ class ProduitController extends AbstractController
             $entityManager->remove($produit);
             $entityManager->flush();
 
-            $message = 'Produit supprimé avec succès';
-            $this->addFlash("success" , $message ); 
+            $this->addFlash("danger" , "Produit supprimé" ); 
         }
 
         return $this->redirectToRoute('produit_index');

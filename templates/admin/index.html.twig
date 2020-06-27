@@ -13,6 +13,7 @@
             <tr>
                 <th>Panier N°</th>
                 <th>Etat</th>
+                <th>Client</th>
                 <th colspan="2">Contenu panier</th>       
             </tr>
         {% if paniers is not empty %}
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ panier.id }}</td>
                 <td>{{ panier.etat ? 'Payé' : 'Non payé' }}</td>
+                <td>{{ panier.user.nom }} {{ panier.user.prenom}}</td>
                 <td>
                    
                     {% for content in contenu %}
@@ -27,7 +29,7 @@
                         
                             <td>
                             Quantité : {{ content.quantite  }}<br>
-                            Crée le : {{ content.createdAt|date('d-m-Y')  }}
+                            Crée le : {{ content.createdAt|date('d-m-Y')  }}<br>
                             <td>
                         {% endif %}
                     {% endfor %}
