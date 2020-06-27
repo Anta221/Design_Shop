@@ -92,8 +92,8 @@ class ProduitController extends AbstractController
 
 
             $this->getDoctrine()->getManager()->flush();
-            $message = 'Produit modifier avec succès';
-            $this->addFlash("success" , $message ); 
+          
+            $this->addFlash("danger" , "Produit modifier"); 
             
 
             return $this->redirectToRoute('produit_index');
