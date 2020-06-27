@@ -18,10 +18,7 @@
 {% block body %}
     <br>
     <br>
-<div class="container">
-        <br>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa</p>
-
+<div class="container" style="min-height:80vh">
 {% if panier != null %}
     {% set total = 0 %}
     <table class="table">
@@ -72,17 +69,11 @@
     <a href="{{ path('edit_panier') }}"><button type="button" class="btn btn-primary text-center">Acheter</button></a> 
     <br><br>
 {% else %}
-<p>Panier vide </p>
+<h2 class="text-center display-2">Panier vide </h2>
 {% endif %}
     
 </div>
 <br><br>
 <br><br>
 {% endblock %}
-{% block review %}
-<section class="container section-title">
-    
-    <h5>Autres produits </h5>
-       
-</section>
-{% endblock %}
+{% block review %}{% endblock %}

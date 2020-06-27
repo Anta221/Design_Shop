@@ -18,8 +18,8 @@ class ProduitType extends AbstractType
             ->add('description')
             ->add('prix', MoneyType::class)
             ->add('stock') 
-            ->add('photo', FileType::class,[
-                'label'=> 'Choisissez votre image'
+            ->add('photo' , FileType::class , [
+                'data_class' => null
             ])
         ;
     }

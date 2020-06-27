@@ -61,7 +61,7 @@
 					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
 					{% endif %}
 					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_SUPER_ADMIN') %}
-						 <li><a href="{{ path('panier_liste') }}">Liste des paniers</a></li>
+						 <li><a href="{{ path('panier_liste') }}">Liste des paniers non acheté</a></li>
 					{% endif %}
 					
 				</ul>
@@ -140,7 +140,9 @@
             <div class="container">
                 <div class="row">
                     
-						<p>Aenean vitae porttitor purus, et varius nunc. Aenean convallis lacus eu mauris semper, quis vulputate odio pulvinar. Ut lobortis mollis imperdiet. Phasellus vel vulputate ipsum, in sollicitudin purus. Morbi dignissim elit id ante dignissim malesuada. Sed ornare est vitae ipsum viverra, sed fringilla nunc congue. Vivamus vehicula semper auctor.Nullam et eros sit amet nunc congue efficitur eget eget metus. Sed malesuada, leo in sodales imperdiet, urna nibh lobortis tortor, tempus elementum mauris nisi sed metus. Nunc at aliquam risus.
+						<p>
+						Aenean vitae porttitor purus, et varius nunc. Aenean convallis lacus eu mauris semper, quis vulputate odio pulvinar. Ut lobortis mollis imperdiet. Phasellus vel vulputate ipsum, in sollicitudin purus. Morbi dignissim elit id ante dignissim malesuada. Sed ornare est vitae ipsum viverra, sed fringilla nunc congue. Vivamus vehicula semper auctor.Nullam et eros sit amet nunc congue efficitur eget eget metus. Sed malesuada, leo in sodales imperdiet, urna nibh lobortis tortor, tempus elementum mauris nisi sed metus. Nunc at aliquam risus.
+												Aenean vitae porttitor purus, et varius nunc. Aenean convallis lacus eu mauris semper, quis vulputate odio pulvinar. Ut lobortis mollis imperdiet. Phasellus vel vulputate ipsum, in sollicitudin purus. Morbi dignissim elit id ante dignissim malesuada. Sed ornare est vitae ipsum viverra, sed fringilla nunc congue. Vivamus vehicula semper auctor.Nullam et eros sit amet nunc congue efficitur eget eget metus. Sed malesuada, leo in sodales imperdiet, urna nibh lobortis tortor, tempus elementum mauris nisi sed metus. Nunc at aliquam risus.
 						</p>
                     
                 </div>

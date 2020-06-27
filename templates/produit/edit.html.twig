@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Produit{% endblock %}
+{% block title %}Édition Produit{% endblock %}
 
 {% block body %}
-    <h1>Edit Produit</h1>
+<div class="container">
+    <h1>Édition Produit</h1>
 
-    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('produit/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <br>
 
-    <a href="{{ path('produit_index') }}">back to list</a>
+    <a href="{{ path('produit_index') }}"><i class="fas fa-arrow-left"></i> Retour</a>
+    <br><br><br>
 
     {{ include('produit/_delete_form.html.twig') }}
+</div>
 {% endblock %}
