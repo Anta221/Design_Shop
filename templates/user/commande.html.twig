@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commande{% endblock %}
+
+{% block slide %}{% endblock %}
+{% block body %}
+<div class="container my-5">
+    <h1 class="display-4">Mes commandes</h1>
+
+    <table class="table">
+        <tbody>
+    
+            <tr>
+                <th>Commande N°</th>
+                 <th>Date</th>
+                <th>Montant</th>
+               
+                <th>Voir</th>
+            </tr>
+            {% if user.paniers is not empty %}
+            {% for panier in user.paniers %}
+               
+                <tr>
+                    <td>{{ panier.id }}</td>
+                    <td>{{ panier.createdAt|date("d-m-Y") }}</td>
+                    {% for contenu in contenuPanier %}
+                        {% set montant = 0 %}
+                    
+                        {% if contenu.panier.id == panier.id %}
+
+                            {% for produit in contenu.produit %}
+                                {% set montant = contenu.quantite * produit.prix %}
+                            {% endfor %}
+                        <td> {{ montant}} €</td>
+                        <td><a href="{{ path('contenu_show' , {'id' : contenu.id }) }}">Voir</a></td>
+                        {% endif %}
+                       
+                    {% endfor %}
+                
+                
+                <tr>
+            {% endfor %}
+
+            {% else %}
+                <tr>
+                    <td>Liste vide</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-arrow-right"></i> Retour</a>
+
+</div>
+{% endblock %}

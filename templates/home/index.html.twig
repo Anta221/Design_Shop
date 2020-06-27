@@ -7,7 +7,7 @@
 <br><br>
     <section class="container section-title">
         <div class="container" >
-        <p> 
+            <p> 
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa, vehicula et congue ut, semper vel augue. Suspendisse auctor elementum tempus. Fusce in tellus vel arcu porttitor consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
                 Sed condimentum vitae est ut finibus. Cras venenatis sem turpis, nec tempor magna pellentesque ac. Suspendisse dapibus mattis quam quis dignissim. Proin erat magna, accumsan ut eros vel, accumsan scelerisque magna. Aliquam porttitor felis in nulla consequat consectetur. Proin sapien ipsum, aliquet sit amet lectus ut, commodo commodo odio.
             </p>
@@ -20,22 +20,22 @@
     <!-- Recipes section -->
     <!-- Recipes section -->
   
-
-
-        {% for produit in produits %} 
-            <div class="container">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ asset("uploads/" ~ produit.photo )}}" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">{{produit.photo}} </h5>
-                    <p class="card-text">{{produit.description }}</p>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}" class="btn btn-primary">Voir</a>
-                    </div>
-                </div>
+ <div class="container">
+    <div class="row">
+    {% for produit in produits %}  
+        <div class="col-md-4">  
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{ asset("uploads/" ~ produit.photo )}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{produit.photo}} </h5>
+                <p class="card-text">{{produit.description }}</p>
+                <a href="{{ path('produit_show', {'id': produit.id}) }}" class="btn btn-primary">Voir</a>   
             </div>
-            
-        {% endfor %}
-
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
 
     <!-- Recipes section end -->
 {% endblock %}
