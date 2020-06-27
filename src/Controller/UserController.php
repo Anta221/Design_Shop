@@ -9,6 +9,7 @@ use App\Entity\ChangePassword;
 use App\Form\ChangePasswordType;
 use App\Form\UserEditPasswordType;
 use App\Repository\UserRepository;
+use App\Repository\ContenuPanierRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -169,5 +170,21 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+
+
+
+    /**
+     * Affiche toutes les commandes de l'utilisateur connecté
+     * @Route("/user/commande/{id}"  , name="user_commande_show")
+     */
+    public function findCommande(User $user , ContenuPanierRepository $repo)
+    {
+
+        return $this->render("user/commande.html.twig", [
+            'user' => $user, 
+            'contenuPanier' => $repo->findAll()
+        ]); 
     }
 }

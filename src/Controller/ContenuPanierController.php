@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/contenu/panier")
+ * @Route("/user/contenu/panier")
  */
 class ContenuPanierController extends AbstractController
 {
@@ -27,11 +27,14 @@ class ContenuPanierController extends AbstractController
     public function new(Request $request , Produit $produit , SessionInterface $session ,ContenuPanierRepository $repo): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+    
         //création de la session si ,existe pas 
         if(!$session->has('Panier')){
 
+        
             $session->set('Panier', array()); 
-            $panier =   $session->get('Panier');
+            $session->set('id_panier_user', array()); 
+            $panier =  $session->get('Panier');
 
             //contenu panier
             $contenuPanier = new ContenuPanier();
@@ -46,8 +49,12 @@ class ContenuPanierController extends AbstractController
             $panierUser->setCreatedAt(new \DateTime()); 
             $panierUser->setEtat(0); 
             $entityManager->persist( $panierUser); 
-    
 
+            $contenuPanier->setPanier($panierUser); 
+            $entityManager->persist($contenuPanier);
+            
+
+    
             $id_produit = $produit->getId(); 
             $panier[$id_produit] = [
                 'id_produit' => $produit->getId(),
@@ -55,10 +62,13 @@ class ContenuPanierController extends AbstractController
                 'date_ajout' => $contenuPanier->getCreatedAt(), 
                 'prix' =>$produit->getPrix(), 
                 'stock' => $produit->getStock(), 
-                'nom_produit' => $produit->getNom()
+                'nom_produit' => $produit->getNom(), 
+                'idPanier' => $contenuPanier->getPanier()->getId()
             ]; 
 
+           
             $session->set('Panier' , $panier); 
+     
 
         }else{
 
@@ -66,11 +76,22 @@ class ContenuPanierController extends AbstractController
             $contenuPanier = new ContenuPanier();
             $contenuPanier->setQuantite($request->request->get('quantite')); 
             $contenuPanier->setCreatedAt(new \DateTime()); 
+
+            // Création du panier
+            $panierUser = new Panier(); 
+            $panierUser->setUser($this->getUser()); 
+            $panierUser->setCreatedAt(new \DateTime()); 
+            $panierUser->setEtat(0); 
+            $entityManager->persist( $panierUser); 
+
             $produit->addContenuPanier($contenuPanier); 
 
-            $id_produit = $produit->getId(); 
-            if(array_key_exists($id_produit , $panier)){
+            $contenuPanier->setPanier($panierUser); 
 
+            $id_produit = $produit->getId(); 
+            
+            if(array_key_exists($id_produit , $panier)){
+                //modifie la quantité en session
                 $quantite = $panier[$id_produit]['quantite'] + $contenuPanier->getQuantite(); 
                 $panier[$id_produit]['quantite'] = $quantite;  
                
@@ -89,14 +110,13 @@ class ContenuPanierController extends AbstractController
             }
       
             $session->set('Panier' ,  $panier ); 
+            $entityManager->persist($contenuPanier);
 
         }
 
-   
-
-        $entityManager->persist($contenuPanier);
        
         $entityManager->flush();
+
 
  
         $this->addFlash("success" , "Produit ajouté au panier");
@@ -118,7 +138,7 @@ class ContenuPanierController extends AbstractController
      */
     public function show(SessionInterface $session , ProduitRepository $repo): Response
     {
-          // récupération des modèles hauts en session
+         
           $panier = null ; 
           $produits = null; 
           if($session->has('Panier')){
@@ -156,6 +176,21 @@ class ContenuPanierController extends AbstractController
        return $this->redirectToRoute('panier_index');
 
     }
+
+
+    /**
+     * Affiche le contenu d'une commande
+     * @Route("/{id}", name="contenu_show", methods={"GET"})
+     */
+    public function showOne(ContenuPanier $contenu): Response
+    {
+       
+    
+        return $this->render('contenu_panier/showOne.html.twig', [
+            'contenu' => $contenu, 
+        ]);
+    }
+
 
 
 

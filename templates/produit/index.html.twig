@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Panier{% endblock %}
+{% block title %}Nos produits{% endblock %}
 {% block slide %}
 <section class="hero-section">
     <div class="hero-slider owl-carousel">
@@ -20,30 +20,28 @@
     <!-- Recipes section -->
    {% if produits is not empty %}
     <section class="recipes-section spad pt-0 mt-3">
-
         <div class="container">
             <div class="row">
-            {% for produit in produits %}       
-            <div class="col-lg-4 col-md-6">
-                <div class="recipe">
-                    <img src="{{ asset("uploads/" ~ produit.photo )}}" alt="">
-                    <div class="recipe-info-warp">
-                        <div class="recipe-info">
-                            <h4>{{produit.nom}}</h4>
-                      
-                            <a href="{{ path('produit_show', {'id': produit.id}) }}"><button type="button" class="btn btn-info text-center">Voir</button></a>
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED" and is_granted('ROLE_ADMIN')) %}
-                                <a href="{{ path('produit_edit', {'id': produit.id}) }}"><button type="button" class="btn btn-warning text-center">Editer</button></a>             
-                            {% endif %} 
+                {% for produit in produits %}       
+                <div class="col-lg-4 col-md-6">
+                    <div class="recipe">
+                        <img src="{{ asset("uploads/" ~ produit.photo )}}" alt="">
+                        <div class="recipe-info-warp">
+                            <div class="recipe-info">
+                                <h4>{{produit.nom}}</h4>
+                        
+                                <a href="{{ path('produit_show', {'id': produit.id}) }}"><button type="button" class="btn btn-info text-center">Voir</button></a>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED" and is_granted('ROLE_ADMIN')) %}
+                                    <a href="{{ path('produit_edit', {'id': produit.id}) }}"><button type="button" class="btn btn-warning text-center">Editer</button></a>             
+                                {% endif %} 
+                            </div>
                         </div>
-                    </div>
-                
-                </div> 
-                    
-               
+                    </div> 
+                        
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            
         </div>
     </section>
     {% else %}

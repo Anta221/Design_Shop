@@ -56,11 +56,14 @@
 				<ul class="main-menu">
 					<li><a href="{{ path('home') }}">Accueil</a></li>
 					<li><a href="{{ path('produit_index') }}">Produits</a></li>
-					<li><a href="{{ path('contenu_panier_show') }}">Panier</a></li>
+					<li><a href="{{ path('panier_index') }}">Panier</a></li>
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 					    <li><a href="{{ path('user_show' , {'id' : app.user.id }) }}">Mon Compte</a></li>
-                    {% endif %}
-					<li><a href="#">Contact</a></li>
+					{% endif %}
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_SUPER_ADMIN') %}
+						 <li><a href="{{ path('panier_liste') }}">Liste des paniers</a></li>
+					{% endif %}
+					
 				</ul>
 			</div>
 		</div>
@@ -117,8 +120,8 @@
 
 		
 		<!-- Gallery section -->
-		<div class="container">
-			<div class="gallery">
+		
+			<div class="gallery mt-5">
 				<div class="gallery-slider owl-carousel">
 					<div class="gs-item set-bg" data-setbg="{{asset("img/instagram/francesca-tosolini-DmOhItSo49k-unsplash.jpg")}}"></div>
 					<div class="gs-item set-bg" data-setbg="{{asset("img/instagram/francesca-tosolini-qnSTxcs0EEs-unsplash.jpg")}}"></div>
@@ -128,7 +131,7 @@
 					<div class="gs-item set-bg" data-setbg="{{asset("img/instagram/dan-gold-4HG3Ca3EzWw-unsplash.jpg")}}"></div>
 				</div>
 			</div>
-		</div>
+	
         <!-- Gallery section end -->
 
 	<!-- Review section end -->

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande{% endblock %}
+{% block slide %}
+<section class="hero-section">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-slide-item set-bg" data-setbg="{{asset("img/annie-spratt-P43nxvIHnag-unsplash.jpg")}}">
+            <div class="hs-text">
+                <h2 class="hs-title-1"><span>Ma</span></h2>
+                <h2 class="hs-title-2"><span>Commande</span></h2>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container" style="min-height:80vh;margin-top:10%;">
+        <br>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum massa</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Commande N°</th>
+                <th>Date d'ajout</th>
+                <th>Produit</th>
+                <th>Prix unitaire</th>
+                <th>Quantité</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+       
+        <tbody>
+     
+          <tr>
+       
+              {% set montant = 0 %}
+
+            <th>{{ contenu.panier.id }}</th>
+            <th>{{ contenu.createdAt|date("d-m-Y") }}</th>
+            {% for produit in contenu.produit %}
+                <th>{{ produit.nom }}</th>
+                <th>{{ produit.prix }}€</th>
+                {% set montant = contenu.quantite * produit.prix %}
+            {% endfor %}
+            <th>{{ contenu.quantite }} </th>
+        
+            <th>{{ montant  }}€</th>
+         
+           
+         
+            </tr>
+   
+        </tbody>
+    </table>
+
+      <a href="{{ path('user_commande_show' , {'id' : app.user.id }) }}"><i class="fas fa-arrow-left"></i> Retour</a>
+ 
+
+</div>
+
+{% endblock %}
+{% block review %}{% endblock %}

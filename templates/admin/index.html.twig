@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Paniers{% endblock %}
+{% block slide %}{% endblock %}
+
+
+{% block body %}
+<section class="container my-4">
+    <h2 class="display-4"> Liste des Paniers</h2>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Panier N°</th>
+                <th>Etat</th>
+                <th colspan="2">Contenu panier</th>       
+            </tr>
+        {% if paniers is not empty %}
+            {% for panier in paniers %}
+            <tr>
+                <td>{{ panier.id }}</td>
+                <td>{{ panier.etat ? 'Payé' : 'Non payé' }}</td>
+                <td>
+                   
+                    {% for content in contenu %}
+                        {% if content.panier.id == panier.id %}
+                        
+                            <td>
+                            Quantité : {{ content.quantite  }}<br>
+                            Crée le : {{ content.createdAt|date('d-m-Y')  }}
+                            <td>
+                        {% endif %}
+                    {% endfor %}
+                  
+                </td>
+
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="3">Liste vide</td></tr>
+        {% endif %}
+        </tbody>
+    </table>
+</section>
+<br><br>
+{% endblock %}
+{% block review %}{% endblock %}
+
+

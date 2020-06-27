@@ -30,12 +30,10 @@
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
                 <th>Montant</th>
-                <th>Etat</th>
-                <th>Actions</th>
             </tr>
         </thead>
        
-        <tbody>{{ dump(produits) }}
+        <tbody>
         {% if produits is not empty %}
           {% for produit in produits %}
           <tr>
@@ -56,8 +54,7 @@
       
         </tbody>
     </table>
-    <a href="{{ path('panier_new') }}"><button type="button" class="btn btn-primary text-center">Nouveau pannier</button></a> 
-    <br><br>
+ 
 {% else %}
 <p>Contenu panier vide </p>
 {% endif %}
